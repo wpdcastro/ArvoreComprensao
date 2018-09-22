@@ -34,42 +34,46 @@ function classify($tabela)
 	return $objectFreq;
 }
 
+function diminuir($tabela)
+{
+	foreach ($tabela as $letra => $frequencia) {
+		$proximo = next($tabela);
+		$letraProximo = key($tabela);
+		echo $letraProximo;
+		die;
+		$soma = $frequencia + $proximo;
+		
+		$tabela[$letra] = 
+		[ 
+			$letra . $letraProximo,
+			$soma,
+		];
+
+    	unset($tabela[$letraProximo]);
+    	unset($tabela[$letra]);
+    	$tabela[$letra . $letraProximo] = $soma;
+    	asort($tabela);
+		return $tabela;
+	}
+}
+
 $frequencyTable = generateFrequency($fraseQuebrada);
 $obTb = classify($frequencyTable);
+$x = diminuir($frequencyTable);
+$arrayCount = count($frequencyTable);
 
-
-public function diminuir($obj)
-{
-	$i = 0;
-	do {
-
-		$obj[$i]->getFreq();
-
-	} while();
+for ($i = $arrayCount; $i >= 2; $i--) {
+	$x = diminuir($x);
 }
+
+print_r($x);
 /*
 echo "<br>";
 
 $tabelaAux = [];
 
 
-foreach ($tabela as $letra => $frequencia) {
-	if ($letra != $letraProximo) {
-		$proximo = next($tabela);
-		$letraProximo = key($tabela);
-		$soma = $frequencia + $proximo;
-		
-		$tabelaAux[$soma] = 
-		[ 
-			0 => $letra,
-			1 => $letraProximo,
-		];
-    	unset($tabela[$letraProximo]);
-    	unset($tabela[$letra]);
-    	$tabela[$letra . $letraProximo] = $soma;
-    	asort($tabela);
-		print_r($tabela); echo "<br>";
-	}
+
 
 }
 echo "<br>";
