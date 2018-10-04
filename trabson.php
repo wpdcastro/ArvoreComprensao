@@ -24,64 +24,45 @@ function generateFrequency($fraseQuebrada)
 }
 
 // transforma a tabela em objeto
-function classify($tabela) 
+function classify($tabel) 
 {
 	$objectFreq = [];
-	foreach ($tabela as $letter => $freq) {
+	foreach ($tabel as $letter => $freq) {
 		$objectFreq[] = new Node($freq, $letter);
 	}
 
 	return $objectFreq;
 }
 
-function diminuir($tabela)
+function comprimir($tabela, $objFreq)
 {
 	foreach ($tabela as $letra => $frequencia) {
-		$proximo = next($tabela);
+		$frequProximo = next($tabela);
 		$letraProximo = key($tabela);
-		echo $letraProximo;
-		die;
-		$soma = $frequencia + $proximo;
+
+		$soma = $frequencia + $frequProximo;
 		
-		$tabela[$letra] = 
-		[ 
-			$letra . $letraProximo,
-			$soma,
-		];
+    	$letraJunta = $letra . $letraProximo;
+
+    		
+    	$objFreq[] = new Node($soma, $letraJunta, $frequProximo, $letraProximo);
+		// buscar na objFreq o nó de esq e dir e botar esse nó novo de upper node
+		$n->left = $frequProximo;
+		$n->right = $letraProximo;
+		$n->freq = $soma;
 
     	unset($tabela[$letraProximo]);
     	unset($tabela[$letra]);
-    	$tabela[$letra . $letraProximo] = $soma;
     	asort($tabela);
+    
 		return $tabela;
+		//retornar tabela e objFreq
 	}
 }
 
 $frequencyTable = generateFrequency($fraseQuebrada);
 $obTb = classify($frequencyTable);
-$x = diminuir($frequencyTable);
-$arrayCount = count($frequencyTable);
-
-for ($i = $arrayCount; $i >= 2; $i--) {
-	$x = diminuir($x);
-}
+$x = comprimir($frequencyTable);
 
 print_r($x);
-/*
-echo "<br>";
-
-$tabelaAux = [];
-
-
-
-
-}
-echo "<br>";
-foreach ($tabelaAux as $letra => $num) {
-	echo $letra . ' [ 0 : '  . $tabelaAux[$letra][0] . 
-	              ' - 1 : ' . $tabelaAux[$letra][1] . ' ] ';
-	echo "<br>";
-}
-
-print_r($tabelaAux);
-*/
+//BUSCA
