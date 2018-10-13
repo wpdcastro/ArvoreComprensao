@@ -6,18 +6,12 @@ class Node {
 	public $right;
 	public $letter;
 
-	public function __construct ($freq = NULL, $letter = NULL, $left = NULL, $right = NULL, $upperNode = NULL)
+	public function __construct ($freq = NULL, $letter = NULL, $left = NULL, $right = NULL)
 	{
 		$this->freq = $freq;
 		$this->letter = $letter;
 		$this->left = $left;
 		$this->right = $right;
-		$this->upperNode = $upperNode;
-	}
-
-	public function getFreq()
-	{
-		return $freq;
 	}
 }
 

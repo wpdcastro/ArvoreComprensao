@@ -3,7 +3,7 @@ require ("Node.php");
 
 	$string = 'ABRACADABRA';
 	$string1 = 'ABRACADABRA SIM SALABIN BIM BIM';
-
+	$arvore = [];
 	$fraseQuebrada = str_split($string);
 
 // cria a tabela de frequencia a partir da string
@@ -24,6 +24,7 @@ function generateFrequency($fraseQuebrada)
 }
 
 // transforma a tabela em objeto
+/*
 function classify($tabel) 
 {
 	$objectFreq = [];
@@ -33,36 +34,44 @@ function classify($tabel)
 
 	return $objectFreq;
 }
-
-function comprimir($tabela, $objFreq)
+*/
+function comprimir($tabela)
 {
 	foreach ($tabela as $letra => $frequencia) {
+		
 		$frequProximo = next($tabela);
 		$letraProximo = key($tabela);
 
 		$soma = $frequencia + $frequProximo;
 		
     	$letraJunta = $letra . $letraProximo;
-
-    		
-    	$objFreq[] = new Node($soma, $letraJunta, $frequProximo, $letraProximo);
+		// novo nó. o Nó recebe parametros da arvore 
+    	// se ajudar, colocar mais um campo de numero para a busca
+    	$arvore[] = new Node($soma, $letraJunta, $letraProximo, $letra);
+echo "<br>";
+    	print_r($arvore);
+		echo "<br><br><br>";
 		// buscar na objFreq o nó de esq e dir e botar esse nó novo de upper node
-		$n->left = $frequProximo;
-		$n->right = $letraProximo;
-		$n->freq = $soma;
-
+		$tabela[$letraJunta] = $soma;
     	unset($tabela[$letraProximo]);
     	unset($tabela[$letra]);
+    	//var_dump($tabela);
     	asort($tabela);
-    
-		return $tabela;
-		//retornar tabela e objFreq
+		
+		return $tabela; //retornar tabela de frequencia atualizada
+		
 	}
 }
 
-$frequencyTable = generateFrequency($fraseQuebrada);
-$obTb = classify($frequencyTable);
-$x = comprimir($frequencyTable);
+$tabelaFreq = generateFrequency($fraseQuebrada);
 
-print_r($x);
+$tabelaAtualizada = comprimir($tabelaFreq);
+print_r($tabelaAtualizada);
+while(count($tabelaAtualizada) != 1) {
+	$tabelaAtualizada = comprimir($tabelaAtualizada);
+}
+echo "<br>";
+var_dump($arvore);
+echo "<br>";
+
 //BUSCA
