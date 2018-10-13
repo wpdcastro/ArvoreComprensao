@@ -48,7 +48,7 @@ function comprimir($tabela)
 		// novo nó. o Nó recebe parametros da arvore 
     	// se ajudar, colocar mais um campo de numero para a busca
     	$arvore[] = new Node($soma, $letraJunta, $letraProximo, $letra);
-echo "<br>";
+		echo "<br>";
     	print_r($arvore);
 		echo "<br><br><br>";
 		// buscar na objFreq o nó de esq e dir e botar esse nó novo de upper node
